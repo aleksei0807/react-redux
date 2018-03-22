@@ -92,9 +92,9 @@ export default function finalPropsSelectorFactory(dispatch, _ref2) {
   var mapDispatchToProps = initMapDispatchToProps(dispatch, options);
   var mergeProps = initMergeProps(dispatch, options);
 
-  if (process.env.NODE_ENV !== 'production') {
-    verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
+  // }
 
   var selectorFactory = options.pure ? pureFinalPropsSelectorFactory : impureFinalPropsSelectorFactory;
 

@@ -37,13 +37,13 @@ export function createProvider(storeKey = 'store', subKey) {
         }
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    // if (process.env.NODE_ENV !== 'production') {
       Provider.prototype.componentWillReceiveProps = function (nextProps) {
         if (this[storeKey] !== nextProps.store) {
           warnAboutReceivingStore()
         }
       }
-    }
+    // }
 
     Provider.propTypes = {
         store: storeShape.isRequired,

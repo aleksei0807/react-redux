@@ -986,13 +986,15 @@ function createProvider() {
     return Provider;
   }(react.Component);
 
-  {
-    Provider.prototype.componentWillReceiveProps = function (nextProps) {
-      if (this[storeKey] !== nextProps.store) {
-        warnAboutReceivingStore();
-      }
-    };
-  }
+  // if ("development" !== 'production') {
+
+
+  Provider.prototype.componentWillReceiveProps = function (nextProps) {
+    if (this[storeKey] !== nextProps.store) {
+      warnAboutReceivingStore();
+    }
+  };
+  // }
 
   Provider.propTypes = {
     store: storeShape.isRequired,
@@ -1454,36 +1456,36 @@ selectorFactory) {
     Connect.contextTypes = contextTypes;
     Connect.propTypes = contextTypes;
 
-    {
-      Connect.prototype.componentWillUpdate = function componentWillUpdate() {
-        var _this2 = this;
+    // if ("development" !== 'production') {
+    Connect.prototype.componentWillUpdate = function componentWillUpdate() {
+      var _this2 = this;
 
-        // We are hot reloading!
-        if (this.version !== version) {
-          this.version = version;
-          this.initSelector();
+      // We are hot reloading!
+      if (this.version !== version) {
+        this.version = version;
+        this.initSelector();
 
-          // If any connected descendants don't hot reload (and resubscribe in the process), their
-          // listeners will be lost when we unsubscribe. Unfortunately, by copying over all
-          // listeners, this does mean that the old versions of connected descendants will still be
-          // notified of state changes; however, their onStateChange function is a no-op so this
-          // isn't a huge deal.
-          var oldListeners = [];
+        // If any connected descendants don't hot reload (and resubscribe in the process), their
+        // listeners will be lost when we unsubscribe. Unfortunately, by copying over all
+        // listeners, this does mean that the old versions of connected descendants will still be
+        // notified of state changes; however, their onStateChange function is a no-op so this
+        // isn't a huge deal.
+        var oldListeners = [];
 
-          if (this.subscription) {
-            oldListeners = this.subscription.listeners.get();
-            this.subscription.tryUnsubscribe();
-          }
-          this.initSubscription();
-          if (shouldHandleStateChanges) {
-            this.subscription.trySubscribe();
-            oldListeners.forEach(function (listener) {
-              return _this2.subscription.listeners.subscribe(listener);
-            });
-          }
+        if (this.subscription) {
+          oldListeners = this.subscription.listeners.get();
+          this.subscription.tryUnsubscribe();
         }
-      };
-    }
+        this.initSubscription();
+        if (shouldHandleStateChanges) {
+          this.subscription.trySubscribe();
+          oldListeners.forEach(function (listener) {
+            return _this2.subscription.listeners.subscribe(listener);
+          });
+        }
+      }
+    };
+    // }
 
     return hoistNonReactStatics(Connect, WrappedComponent);
   };
@@ -1784,6 +1786,7 @@ function wrapMapToPropsFunc(mapToProps, methodName) {
         props = proxy(stateOrDispatch, ownProps);
       }
 
+      // if ("development" !== 'production') 
       verifyPlainObject(props, displayName, methodName);
 
       return props;
@@ -1845,6 +1848,7 @@ function wrapMergePropsFunc(mergeProps) {
         hasRunOnce = true;
         mergedProps = nextMergedProps;
 
+        // if ("development" !== 'production')
         verifyPlainObject(mergedProps, displayName, 'mergeProps');
       }
 
@@ -1971,9 +1975,9 @@ function finalPropsSelectorFactory(dispatch, _ref2) {
   var mapDispatchToProps = initMapDispatchToProps(dispatch, options);
   var mergeProps = initMergeProps(dispatch, options);
 
-  {
-    verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
-  }
+  // if ("development" !== 'production') {
+  verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
+  // }
 
   var selectorFactory = options.pure ? pureFinalPropsSelectorFactory : impureFinalPropsSelectorFactory;
 

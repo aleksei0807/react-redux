@@ -52,13 +52,15 @@ export function createProvider() {
     return Provider;
   }(Component);
 
-  if (process.env.NODE_ENV !== 'production') {
-    Provider.prototype.componentWillReceiveProps = function (nextProps) {
-      if (this[storeKey] !== nextProps.store) {
-        warnAboutReceivingStore();
-      }
-    };
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+
+
+  Provider.prototype.componentWillReceiveProps = function (nextProps) {
+    if (this[storeKey] !== nextProps.store) {
+      warnAboutReceivingStore();
+    }
+  };
+  // }
 
   Provider.propTypes = {
     store: storeShape.isRequired,

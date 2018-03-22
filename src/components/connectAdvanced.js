@@ -264,7 +264,7 @@ export default function connectAdvanced(
     Connect.contextTypes = contextTypes
     Connect.propTypes = contextTypes
 
-    if (process.env.NODE_ENV !== 'production') {
+    // if (process.env.NODE_ENV !== 'production') {
       Connect.prototype.componentWillUpdate = function componentWillUpdate() {
         // We are hot reloading!
         if (this.version !== version) {
@@ -289,7 +289,7 @@ export default function connectAdvanced(
           }
         }
       }
-    }
+    // }
 
     return hoistStatics(Connect, WrappedComponent)
   }
